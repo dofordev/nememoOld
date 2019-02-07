@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">내메모</string>
+    <string name="default_notification_channel_id">nememo_channel_id</string>
+
+
+    <string name="todo_hint">해야할일</string>
+    <string name="save_txt">저장</string>
+</resources>

@@ -1,0 +1,32 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!--changing it to no actionbar-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--
+                <item name="android:statusBarColor">@color/colorWhite</item>
+                <item name="android:windowLightStatusBar">true</item>
+           -->
+
+        <!--
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+-->
+        <!--
+        <item name="android:windowBackground">@color/colorYellow</item>
+        -->
+    </style>
+
+    <!-- splash -->
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorYellow</item>
+        <item name="colorPrimaryDark">@color/colorYellow</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+</resources>
