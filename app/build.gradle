@@ -33,6 +33,8 @@ dependencies {
     //클라우드 메세징
     implementation 'com.google.firebase:firebase-messaging:17.3.3'
 
+    implementation 'com.google.firebase:firebase-config:16.0.1'
+
 
 }
 
