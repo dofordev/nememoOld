@@ -103,7 +103,7 @@ public class TodoFragment extends Fragment implements TodoListAdapter.OnStartDra
                 todoText.setText("");
                 todoText.clearFocus();
 
-                Toast.makeText(mContext, "저장 성공.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "저장", Toast.LENGTH_SHORT).show();
 
 
 

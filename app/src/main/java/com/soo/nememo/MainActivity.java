@@ -86,7 +86,9 @@ public class MainActivity extends AppCompatActivity{
             addViewPager(item);
         }
 
-
+        if(memoList.size() > 0){
+            toggleFab();
+        }
 
 
 
@@ -127,16 +129,12 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-
-        // 위젯에 대한 참조.
-        tv_outPut = (TextView) findViewById(R.id.tv_outPut);
-
         // URL 설정.
-        String url = "http://www.pocaskenm.kr/api/saving_check_complite.php";
+        //String url = "http://www.pocaskenm.kr/api/saving_check_complite.php";
 
         // AsyncTask를 통해 HttpURLConnection 수행.
-        NetworkTask networkTask = new NetworkTask(url, null);
-        networkTask.execute();
+        //NetworkTask networkTask = new NetworkTask(url, null);
+        //networkTask.execute();
     }
 
     @Override
@@ -187,7 +185,8 @@ public class MainActivity extends AppCompatActivity{
             String mode = data.getExtras().getString("mode");
             if(getFragmentRefreshListener()!=null) {
                 if(mode.equals("insert")){
-                    getFragmentRefreshListener().addItem(item);
+                    getFragmentRefreshListener().onRefresh();
+                    //getFragmentRefreshListener().addItem(item);
                 }
 
                 else if(mode.equals("update")){
@@ -284,7 +283,7 @@ public class MainActivity extends AppCompatActivity{
 
         viewPager.setCurrentItem(tabIndex);
 
-        toggleFab();
+
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -296,6 +295,8 @@ public class MainActivity extends AppCompatActivity{
 
                 //데이터 저장하기
                 SharedPreferences.Editor editor = prefs.edit();
+
+                System.out.println("=============tab.getPosition()==" + tab.getPosition());
                 editor.putInt("tabIndex", tab.getPosition());
                 tabIndex = tab.getPosition();
                 editor.commit();
@@ -357,7 +358,6 @@ public class MainActivity extends AppCompatActivity{
 
     public void toggleFab(){
         int type = groupList.get(tabIndex).getType();
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         switch (type){
             case 1 :    //텍스트타입
                 fab.show();
@@ -390,9 +390,9 @@ public class MainActivity extends AppCompatActivity{
         @Override
         protected String doInBackground(Void... params) {
 
-            String result; // 요청 결과를 저장할 변수.
-            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            result = requestHttpURLConnection.request(url, values); // 해당 URL로 부터 결과물을 얻어온다.
+            String result=""; // 요청 결과를 저장할 변수.
+  //          RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+    //        result = requestHttpURLConnection.request(url, values); // 해당 URL로 부터 결과물을 얻어온다.
 
             return result;
         }
@@ -401,7 +401,6 @@ public class MainActivity extends AppCompatActivity{
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            System.out.println("=============JONGSOOOOOOOO==" + s);
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
             tv_outPut.setText(s);
         }
