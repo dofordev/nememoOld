@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.soo.nememo.adapter.ItemTouchHelperCallback;
 import com.soo.nememo.adapter.ListAdapter;
+import com.soo.nememo.common.Settings;
 import com.soo.nememo.db.DBLoader;
 import com.soo.nememo.item.NoteItem;
 
@@ -41,7 +42,7 @@ public class TextFragment extends Fragment implements ListAdapter.OnStartDragLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final Long groupId = getArguments().getLong("groupId");
+        groupId = getArguments().getLong("groupId");
         View view = inflater.inflate(R.layout.text_fragment, container, false);
         mContext = getActivity();
         mArrayList = new ArrayList<NoteItem>();
@@ -74,9 +75,10 @@ public class TextFragment extends Fragment implements ListAdapter.OnStartDragLis
 
         ((MainActivity)getActivity()).setFragmentRefreshListener(new MainActivity.FragmentRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(Long gId) {
                 // Refresh  Fragment
-                mListAdapter.refreshList(groupId);
+                Log.e(Settings.LOG_TAG , "groupId === " + gId);
+                mListAdapter.refreshList(gId);
             }
             @Override
             public void addItem(NoteItem item) {
@@ -100,7 +102,7 @@ public class TextFragment extends Fragment implements ListAdapter.OnStartDragLis
             }
             @Override
             public void afterTextChanged(Editable arg0) {
-                Log.e("aaaaaaaaaaaaaaaaaa" , "text === " + edit.getText().toString());
+                Log.e(Settings.LOG_TAG , "text === " + edit.getText().toString());
                 // 입력이 끝났을 때
                 mListAdapter.filter(edit.getText().toString());
 

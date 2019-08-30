@@ -39,13 +39,14 @@ public class TodoFragment extends Fragment implements TodoListAdapter.OnStartDra
     private TodoListAdapter mListAdapter;
     private ArrayList<TodoItem> mArrayList;
     private ItemTouchHelper mItemTouchHelper;
+    private Long groupId;
 
     private DBLoader dbLoader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final Long groupId = getArguments().getLong("groupId");
+        groupId = getArguments().getLong("groupId");
         View view = inflater.inflate(R.layout.todo_fragment, container, false);
         mContext = getActivity();
         mArrayList = new ArrayList<TodoItem>();

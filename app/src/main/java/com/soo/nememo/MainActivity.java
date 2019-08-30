@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.soo.nememo.common.Dialog;
 import com.soo.nememo.common.Settings;
+import com.soo.nememo.common.Utils;
 import com.soo.nememo.db.DBLoader;
 import com.soo.nememo.item.MemoGroup;
 import com.soo.nememo.item.NoteItem;
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity{
     //현재탭
     private int tabIndex;
 
-    private TextView tv_outPut;
 
 
     private FragmentRefreshListener fragmentRefreshListener;
@@ -185,12 +185,14 @@ public class MainActivity extends AppCompatActivity{
             String mode = data.getExtras().getString("mode");
             if(getFragmentRefreshListener()!=null) {
                 if(mode.equals("insert")){
-                    getFragmentRefreshListener().onRefresh();
+
+                    Log.i(Settings.LOG_TAG,"저장후===tabIndex = " + tabIndex + "=groupId=" + groupList.get(tabIndex).getId());
+                    getFragmentRefreshListener().onRefresh(groupList.get(tabIndex).getId());
                     //getFragmentRefreshListener().addItem(item);
                 }
 
                 else if(mode.equals("update")){
-                    getFragmentRefreshListener().onRefresh();
+                    getFragmentRefreshListener().onRefresh(groupList.get(tabIndex).getId());
                 }
                 else if(mode.equals("delete")){
                     getFragmentRefreshListener().deleteItem(item);
@@ -201,6 +203,7 @@ public class MainActivity extends AppCompatActivity{
 
         }
     }
+
 
     @Override
     public void onBackPressed() {
@@ -244,7 +247,7 @@ public class MainActivity extends AppCompatActivity{
 
                 MemoGroup curGroup = groupList.get(position);
                 Bundle bundle = new Bundle(1); // 파라미터는 전달할 데이터 개수
-                System.out.println("=================jsjsjs=sadqwdqwd=" +  curGroup.getId());
+                Log.i(Settings.LOG_TAG, "curGroup "+ curGroup.getType() +"= " + curGroup.getId());
                 bundle.putLong("groupId", curGroup.getId() ); // key , value
                 switch (curGroup.getType()) {
                     case 1:
@@ -255,6 +258,7 @@ public class MainActivity extends AppCompatActivity{
                         TodoFragment tabFragment2 = new TodoFragment();
                         tabFragment2.setArguments(bundle);
                         return tabFragment2;
+                    /*
                     case 3:
                         TextFragment tabFragment3 = new TextFragment();
                         tabFragment3.setArguments(bundle);
@@ -263,6 +267,7 @@ public class MainActivity extends AppCompatActivity{
                         TextFragment tabFragment4 = new TextFragment();
                         tabFragment4.setArguments(bundle);
                         return tabFragment4;
+                     */
                     default:
                         return null;
                 }
@@ -296,11 +301,13 @@ public class MainActivity extends AppCompatActivity{
                 //데이터 저장하기
                 SharedPreferences.Editor editor = prefs.edit();
 
-                System.out.println("=============tab.getPosition()==" + tab.getPosition());
+                Log.i(Settings.LOG_TAG,"=============tab.getPosition()==" + tab.getPosition());
                 editor.putInt("tabIndex", tab.getPosition());
                 tabIndex = tab.getPosition();
                 editor.commit();
 
+
+                Log.i(Settings.LOG_TAG,"=============groupId==" + groupList.get(tabIndex).getId());
 
                 viewPager.setCurrentItem(tab.getPosition());
 
@@ -351,7 +358,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public interface FragmentRefreshListener{
-        void onRefresh();
+        void onRefresh(Long groupId);
         void addItem(NoteItem item);
         void deleteItem(NoteItem item);
     }
@@ -402,7 +409,7 @@ public class MainActivity extends AppCompatActivity{
             super.onPostExecute(s);
 
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-            tv_outPut.setText(s);
+           // tv_outPut.setText(s);
         }
     }
 }
