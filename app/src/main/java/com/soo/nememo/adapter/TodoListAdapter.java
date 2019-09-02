@@ -3,7 +3,9 @@ package com.soo.nememo.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.soo.nememo.R;
+import com.soo.nememo.common.Settings;
 import com.soo.nememo.db.DBLoader;
 import com.soo.nememo.item.NoteItem;
 import com.soo.nememo.item.TodoItem;
@@ -178,6 +181,11 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.MyView
 
         ArrayList<TodoItem> dbArrayList = dbLoader.selectTodo(groupId);
         this.arrayList = dbArrayList;
+
+        for(TodoItem item : dbArrayList){
+            Log.i(Settings.LOG_TAG,"todoItem ==" + item.getContents());
+        }
+
         notifyDataSetChanged();
     }
     public void addItem(TodoItem item){

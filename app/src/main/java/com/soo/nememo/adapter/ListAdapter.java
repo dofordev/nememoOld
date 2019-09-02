@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.soo.nememo.R;
 import com.soo.nememo.TextDetailActivity;
+import com.soo.nememo.common.Settings;
 import com.soo.nememo.db.DBLoader;
 import com.soo.nememo.item.NoteItem;
+import com.soo.nememo.item.TodoItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -142,6 +144,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewholder> 
 
         ArrayList<NoteItem> dbArrayList = dbLoader.selectMemo(groupId);
         this.arrayList = dbArrayList;
+
+        for(NoteItem item : dbArrayList){
+            Log.i(Settings.LOG_TAG,"noteItem ==" + item.getTitle());
+        }
         notifyDataSetChanged();
     }
     public void addItem(NoteItem item){
