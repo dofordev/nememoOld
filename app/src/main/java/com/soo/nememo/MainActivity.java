@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity{
     //그룹 아이디 리스트
     private ArrayList<MemoGroup> groupList = new ArrayList<MemoGroup>();
     //현재탭
-    private int tabIndexbbb;
+    private int tabIndex;
+    private int test;
 
 
 
